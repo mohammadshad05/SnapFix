@@ -1,0 +1,13 @@
+{
+  "name": "snapfix-backend",
+  "version": "1.0.0",
+  "description": "SnapFix Root Package",
+  "main": "server/server.js",
+  "scripts": {
+    "build": "cd server && npm install",
+    "start": "cd server && node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
