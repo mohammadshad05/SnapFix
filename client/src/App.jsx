@@ -32,12 +32,20 @@ function App() {
     setTimeout(() => setToast({ show: false, message: '', type: 'success' }), 3000);
   };
 
+  const clearAuthFields = () => {
+    setAuthName('');
+    setAuthEmail('');
+    setAuthPassword('');
+    setAuthRole('user');
+  };
+
   const fetchTickets = async () => {
     try {
       const res = await axios.get('http://localhost:5000/api/tickets');
       setTickets(res.data);
     } catch (err) {
       console.error(err);
+      showNotification('❌ Failed to fetch tickets', 'error');
     }
   };
 
@@ -58,6 +66,7 @@ function App() {
         localStorage.setItem('userData', JSON.stringify(res.data.user));
         showNotification(`Welcome back, ${res.data.user.name}!`);
         setIsAuthModalOpen(false);
+        clearAuthFields();
       } else {
         showNotification('Registration successful! Please login.');
         setAuthMode('login');
@@ -78,7 +87,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!token) {
-      showNotification('⚠️ Please login to submit a ticket!', 'error');
+      showNotification('⚠️️ Please login to submit a ticket!', 'error');
       setIsAuthModalOpen(true);
       return;
     }
@@ -158,7 +167,7 @@ function App() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div style={styles.logoBadge}>🛠️</div>
             <div>
-              <span style={styles.logoTitle}>FixIt Desk</span>
+              <span style={styles.logoTitle}>SnapFix</span>
               <span style={styles.logoSubtitle}>Instant Incident Resolution System</span>
             </div>
           </div>
@@ -179,7 +188,7 @@ function App() {
           </div>
         </nav>
 
-        {/* Dashboard Stats (Fixed for Mobile Screens) */}
+        {/* Dashboard Stats */}
         <div style={styles.statsGrid}>
           <div style={styles.statCard}>
             <div style={styles.statIconWrapper}>📊</div>
@@ -400,7 +409,7 @@ function App() {
                   {authMode === 'login' ? "Don't have an account? Register" : "Already registered? Sign In"}
                 </button>
               </div>
-              <button onClick={() => setIsAuthModalOpen(false)} style={styles.closeBtn}>Cancel</button>
+              <button onClick={() => { setIsAuthModalOpen(false); clearAuthFields(); }} style={styles.closeBtn}>Cancel</button>
             </div>
           </div>
         )}
