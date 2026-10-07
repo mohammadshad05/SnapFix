@@ -4,8 +4,7 @@
   "description": "SnapFix Root Package",
   "main": "server/server.js",
   "scripts": {
-    "build": "cd server && npm install",
-    "start": "cd server && node server.js"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
